@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.2" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="marvel_directory" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="milemorales pci" translatesAutoresizingMaskIntoConstraints="NO" id="dpo-Oi-faa">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="marvellogo1" translatesAutoresizingMaskIntoConstraints="NO" id="g4m-UA-27E">
+                                <rect key="frame" x="20" y="54" width="148" height="61"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="dxB-t2-Xgo"/>
+                                    <constraint firstAttribute="height" constant="61" id="lC9-Ac-1Yz"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WOv-ff-ZLT">
+                                <rect key="frame" x="131" y="511" width="152" height="43"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="152" id="rfJ-GP-Ot5"/>
+                                    <constraint firstAttribute="height" constant="43" id="tdv-oy-kiw"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
+                                <state key="normal" title="Browse">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                            </button>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="THR-IL-NMl">
+                                <rect key="frame" x="0.0" y="425" width="414" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Search for your favorite heroes or villians" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHQ-Ma-oo5">
+                                <rect key="frame" x="20" y="306" width="374" height="89"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="89" id="L02-J3-meq"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="33"/>
+                                <color key="textColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="WOv-ff-ZLT" firstAttribute="top" secondItem="THR-IL-NMl" secondAttribute="bottom" constant="30" id="0lx-ob-a3H"/>
+                            <constraint firstItem="THR-IL-NMl" firstAttribute="leading" secondItem="dpo-Oi-faa" secondAttribute="leading" id="1ar-S5-DqW"/>
+                            <constraint firstItem="g4m-UA-27E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="4ts-7i-Htw"/>
+                            <constraint firstItem="WOv-ff-ZLT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Lsk-G0-8zD"/>
+                            <constraint firstItem="g4m-UA-27E" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="Mdb-jR-3XE"/>
+                            <constraint firstItem="g4m-UA-27E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="MwA-9b-xKh"/>
+                            <constraint firstItem="THR-IL-NMl" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Tz7-f3-ebP"/>
+                            <constraint firstItem="dpo-Oi-faa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="Zgk-hJ-1XU"/>
+                            <constraint firstItem="g4m-UA-27E" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="ebq-Xc-Vy9"/>
+                            <constraint firstItem="dpo-Oi-faa" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="fdQ-5P-Jb8"/>
+                            <constraint firstItem="WHQ-Ma-oo5" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="gZL-q5-AG0"/>
+                            <constraint firstItem="dpo-Oi-faa" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="hQO-12-uBN"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="WHQ-Ma-oo5" secondAttribute="trailing" constant="20" id="iZE-bC-fxy"/>
+                            <constraint firstItem="THR-IL-NMl" firstAttribute="top" secondItem="WHQ-Ma-oo5" secondAttribute="bottom" constant="30" id="kCi-4w-wZE"/>
+                            <constraint firstItem="THR-IL-NMl" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="oeE-V9-WzE"/>
+                            <constraint firstAttribute="bottom" secondItem="dpo-Oi-faa" secondAttribute="bottom" id="yvF-ob-PpL"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <connections>
+                        <outlet property="browseButton" destination="WOv-ff-ZLT" id="dJo-RN-PRL"/>
+                        <outlet property="searchBar" destination="THR-IL-NMl" id="Q2T-AG-KYy"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="marvellogo1" width="920" height="418"/>
+        <image name="milemorales pci" width="2062" height="3131"/>
+    </resources>
+</document>
