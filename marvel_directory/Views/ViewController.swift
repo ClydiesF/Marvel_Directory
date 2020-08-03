@@ -29,10 +29,9 @@ final class ViewController: UIViewController {
         
         hideKeyboardWhenTappedAround()
     }
-
-
 }
 
+//SearchQuerySegue
 extension ViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchBarText = searchBar.text else { return }
@@ -42,8 +41,12 @@ extension ViewController: UISearchBarDelegate {
             alert.addAction(.init(title: Constants.dismissString, style: .cancel))
             present(alert, animated: true)
         } else {
-            print("navigate to the next controller")
+            performSegue(withIdentifier: "SearchQuerySegue", sender: self)
         }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.destination is Chara
     }
 }
 
