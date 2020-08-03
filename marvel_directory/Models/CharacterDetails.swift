@@ -9,11 +9,19 @@
 import Foundation
 
 public struct CharacterObject: Decodable {
-    let data: CharacterData
+    let data: CharacterData?
 }
 
 public struct CharacterData: Decodable {
     let results: [CharacterDetails]?
+}
+
+public struct EventList: Decodable {
+    let items: [EventSummary]?
+}
+
+public struct EventSummary: Decodable {
+    let name: String?
 }
 
 public struct CharacterDetails: Decodable {
@@ -21,6 +29,7 @@ public struct CharacterDetails: Decodable {
     let name: String?
     let description: String?
     let thumbnail: Thumbnail?
+    let events: EventList?
 }
 
 public struct Thumbnail: Decodable {

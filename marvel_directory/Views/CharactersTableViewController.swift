@@ -16,23 +16,23 @@ final class CharacterTableViewCell: UITableViewCell {
 }
 
 final class CharactersTableViewController: UITableViewController {
+    var queryString: String? = nil
     private let fetcher = MarvelHeroFetching()
-    private var characterDetails: [CharacterDetails] = []
+    private var characterDetails: CharacterData? = nil
     
     private enum Constants {
         static let tableViewCellID = "CharacterCell"
         static let cellHieght = 150
         static let CharacterDetailViewSegue = "CharacterDetailViewSegue"
+        static let colon = ":"
+        static let secureHttps = "https:"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        navigationItem.title = "Character List"
+        self.tabBarItem.image = UIImage(named: "search")
+       navigationController?.isNavigationBarHidden = false
         getListOfCharacters()
     }
 
@@ -43,24 +43,28 @@ final class CharactersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return characterDetails.count
+        return characterDetails?.results?.count ?? .zero
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: Constants.tableViewCellID, for: indexPath) as! CharacterTableViewCell
+        guard let characterDetails = characterDetails?.results else { return cell }
         let character = characterDetails[indexPath.row]
         
         cell.characterBio.text = character.description
+        
         cell.characterName.text = character.name
+        cell.characterName.layer.cornerRadius = 10
+        cell.characterName.clipsToBounds = true
+        
         guard let thumbnailPath = character.thumbnail?.path, let thumbnailExtension = character.thumbnail?.extensionString else { return cell}
         let imagePath = "\(thumbnailPath).\(thumbnailExtension)"
-        var newImagePath = imagePath.components(separatedBy: ":")
-        newImagePath[0] = "https:"
-        let newnew = newImagePath.joined()
+        var newImagePath = imagePath.components(separatedBy: Constants.colon)
+        newImagePath[.zero] = Constants.secureHttps
+        let securePath = newImagePath.joined()
         
         
-        ImageSetting.setCharacterDetailViewImage(imageView: cell.characterImageView, imagePath: newnew)
+        ImageSetting.setCharacterDetailViewImage(imageView: cell.characterImageView, imagePath: securePath)
     
         return cell
     }
@@ -80,26 +84,27 @@ final class CharactersTableViewController: UITableViewController {
                 let indexPath = tableView.indexPath(for: cell) else {
                     return
             }
+            guard let characterDetails = characterDetails?.results else { return }
+                   let character = characterDetails[indexPath.row]
             
-            let character = characterDetails[indexPath.row]
-            
-            destination.cBio = character.description
-            destination.cName = character.name
+            destination.charBio = character.description
+            destination.charName = character.name
+            destination.eventNames = character.events
             
             guard let thumbnailPath = character.thumbnail?.path, let thumbnailExtension = character.thumbnail?.extensionString else { return }
             let imagePath = "\(thumbnailPath).\(thumbnailExtension)"
-            var newImagePath = imagePath.components(separatedBy: ":")
-            newImagePath[0] = "https:"
-            let newnew = newImagePath.joined()
+            var newImagePath = imagePath.components(separatedBy: Constants.colon)
+            newImagePath[.zero] = Constants.secureHttps
+            let securePath = newImagePath.joined()
             
-            destination.imagePath = newnew
+            destination.imagePath = securePath
         }
     }
 }
 
 extension CharactersTableViewController {
     func getListOfCharacters() {
-        fetcher.getListOfCharacters { result in
+        fetcher.getListOfCharacters(queryString: queryString) { result in
             switch result {
             case let .success(characters):
                 self.characterDetails = characters

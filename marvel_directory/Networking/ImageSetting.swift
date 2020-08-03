@@ -11,7 +11,6 @@ import UIKit
 
 public final class ImageSetting {
     private enum Constants {
-        static let baseURL = "https://image.blockbusterbd.net/00416_main_image_04072019225805.png"
         static let imageViewCorners: CGFloat = 15
     }
     

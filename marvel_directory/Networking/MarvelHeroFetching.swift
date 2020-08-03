@@ -16,15 +16,27 @@ public final class MarvelHeroFetching {
         case noData
     }
     
+    private let allowedDiskSize = 100 * 1024 * 1024
+    private lazy var cache: URLCache = {
+        return URLCache(memoryCapacity: 0, diskCapacity: allowedDiskSize, diskPath: "gifCache")
+    }()
+
+    private func createAndRetrieveURLSession() -> URLSession {
+        let sessionConfiguration = URLSessionConfiguration.default
+        sessionConfiguration.requestCachePolicy = .returnCacheDataElseLoad
+        sessionConfiguration.urlCache = cache
+        return URLSession(configuration: sessionConfiguration)
+    }
+    
     private let session = URLSession.shared
     
     public init() {}
     
-    public func getListOfCharacters(queryString: String? = nil, completetion: @escaping (Result<[CharacterDetails],Error>) -> Void) {
-        makAPIRequest(queryString: queryString, completetion: completetion)
+    public func getListOfCharacters(queryString: String? = nil, completion: @escaping (Result<CharacterData,Error>) -> Void) {
+        makAPIRequest(queryString: queryString, completion: completion)
     }
     
-    func makAPIRequest(queryString: String?, completetion: @escaping (Result<[CharacterDetails],Error>) -> Void) {
+    func makAPIRequest(queryString: String?, completion: @escaping (Result<CharacterData,Error>) -> Void) {
 
         let ts = "\(Date().timeIntervalSince1970)"
 
@@ -42,23 +54,32 @@ public final class MarvelHeroFetching {
             url = url2
         }
         
-        let dataTask = session.dataTask(with: url) { data, res, err in
+        let urlRequest = URLRequest(url: url)
+        if let cachedData = self.cache.cachedResponse(for: urlRequest) {
+            print("Cached data in bytes:", cachedData.data)
+            completion(.success((cachedData.data as? CharacterData)!))
+        } else {
+        
+        let dataTask = createAndRetrieveURLSession().dataTask(with: url) { data, res, err in
             //checks for data from the response
             guard let jsonData = data else {
-                completetion(.failure(err ?? RequestError.invalidResponse))
+                completion(.failure(err ?? RequestError.invalidResponse))
                 return
             }
             // parses response
             do {
               let decoder = JSONDecoder()
                 let characters = try decoder.decode(CharacterObject.self, from: jsonData)
-                completetion(.success(characters.data.results!))
+                let cachedData = CachedURLResponse(response: res!, data: data!)
+                self.cache.storeCachedResponse(cachedData, for: urlRequest)
+                completion(.success(characters.data!))
             } catch {
-                completetion(.failure(error))
+                completion(.failure(error))
             }
         }
         
         dataTask.resume()
+        }
     }
     
 }
